@@ -39,19 +39,19 @@ def identify_image(image_path):
     }
 
     text = """
-    What does the text on the main object say?
+    What does the poster on the window say?
     Keep it 2 to 3 sentences, and return it as a JSON object in the form {"message":message_response}
     If you're not absolutely confident about everything that it says,
     suggest where to move the camera to position the object to the centre of the screen.
     If you are confident, don't mention anything related to the camera in your response.
-    If repositioning is needed, produce a JSON object array in the format 
+    If repositioning is needed, produce a list of commands 
     {"command": command, "radians": radians_number} where the command value is one of the following commands:
-    ['MOVE_LEFT', 'MOVE_RIGHT', 'MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP',
+    ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP',
     'TURN_DOWN'] and whose radian value is, at most, set to 1. 
-    If the main object is too big to be read, move backward. 
-    If the main object is too small to be read, move forward. 
-    If the main object is out of frame, either move left, move right, or turn the camera angle depending on what the most suitable option is. 
-    If the camera angle needs to be adjusted, issue a turn command.
+    If the poster on the window is too big to be read, MOVE_BACKWARD. 
+    If the poster on the window is too small to be read, MOVE_FORWARD. 
+    If the poster on the window is out of frame, either TURN_LEFT or TURN_RIGHT depending on what makes the poster more readable.
+    If the poster starts off as unreadable, the end goal is that the poster should be readable.
     Only respond with the JSON object, and nothing else. Do not include
     ```json ```.
     """
@@ -83,7 +83,7 @@ def identify_image(image_path):
     return response.json()['choices'][0]['message']['content']
 
 def main():
-    img_response = identify_image("../QR3.jpg")
+    img_response = identify_image("../test_images/shitty_poster3.jpg")
     json_response = json.loads(img_response)
     print(json_response)
 
