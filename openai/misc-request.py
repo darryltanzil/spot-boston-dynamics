@@ -21,27 +21,12 @@ Returns:
 - dict: A dictionary with the extracted command and movement information.
 """
 def get_command_and_movement(text):
-    enum_looped = [e.value for e in Commands]
-    prompt = """
-            Given the following string of text, produce a JSON object array in the format {"command":command, "degrees": degrees_number} where the command value is
-    one of the following commands: ['MOVE_LEFT', 'MOVE_RIGHT', 'MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_FORWARD', 'TURN_BACKWARD']
-    and whose degrees value represents a number from the range 0 to 360. 
-    The JSON array's information should be gathered from the following text: Hey Spot, turn 90 degrees right.
-
-    However, if the user doesn't specify a number (e.g. they say "turn right a little bit"), use your judgement to determine a suitable number for the output in the range.
-            """
-
-    print(prompt)
 
     # Make a call to the OpenAI API
     response = client.chat.completions.create(
         model="gpt-4-turbo-preview",
         response_format={"type": "json_object"},
         messages=[
-            {
-                "role": "system",
-                "content": prompt,
-            },
             {
                 "role": "user",
                 "content": text,
