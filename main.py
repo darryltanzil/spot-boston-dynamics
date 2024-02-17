@@ -46,7 +46,7 @@ def main():
                     frame = cam.get_frame()
                     _, enc = cv2.imencode('.jpg', frame)
                     jpg_as_text = base64.b64encode(enc)
-                    print(jpg_as_text)
+                    # print(jpg_as_text)
                     ws.send(jpg_as_text)
                     continue
                 if cmd == "[PAYLOAD]":
