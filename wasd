@@ -1,0 +1,38 @@
+"spot.move_head_in_points(yaws=[+++, XXX], pitches=[XXX, XXX], rolls=[XXX, XXX])"
+spot.move_head_in_points(yaws=[1.0, 0], pitches=[0, 0], rolls=[0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"spot.move_head_in_points(yaws=[---, XXX], pitches=[XXX, XXX], rolls=[XXX, XXX])"
+spot.move_head_in_points(yaws=[-1.0, 0], pitches=[0, 0], rolls=[0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"spot.move_head_in_points(yaws=[XXX, +++], pitches=[XXX, XXX], rolls=[XXX, XXX])"
+spot.move_head_in_points(yaws=[0, 1.0], pitches=[0, 0], rolls=[0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"spot.move_head_in_points(yaws=[XXX, ---], pitches=[XXX, XXX], rolls=[XXX, XXX])"
+spot.move_head_in_points(yaws=[0, -1.0], pitches=[0, 0], rolls=[0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"XXXXX"
+"spot.move_head_in_points(yaws=[XXX, XXX], pitches=[+++, XXX], rolls=[XXX, XXX])"
+spot.move_head_in_points(yaws=[0, 0], pitches=[1.0, 0], rolls=[0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"spot.move_head_in_points(yaws=[XXX, XXX], pitches=[---, XXX], rolls=[XXX, XXX])"
+spot.move_head_in_points(yaws=[0, 0], pitches=[-1.0, 0], rolls=[0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"spot.move_head_in_points(yaws=[XXX, XXX], pitches=[XXX, +++], rolls=[XXX, XXX])"
+spot.move_head_in_points(yaws=[0, 0], pitches=[0, 1.0], rolls=[0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"spot.move_head_in_points(yaws=[XXX, XXX], pitches=[XXX, ---], rolls=[XXX, XXX])"
+spot.move_head_in_points(yaws=[0, 0], pitches=[0, -1.0], rolls=[0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"XXXXX"
+"spot.move_head_in_points(yaws=[XXX, XXX], pitches=[XXX, XXX], rolls=[+++, XXX])"
+spot.move_head_in_points(yaws=[0, 0], pitches=[0, 0], rolls=[1.0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"spot.move_head_in_points(yaws=[XXX, XXX], pitches=[XXX, XXX], rolls=[---, XXX])"
+spot.move_head_in_points(yaws=[0, 0], pitches=[0, 0], rolls=[-1.0, 0], sleep_after_point_reached=1)
+time.sleep(2)
+"spot.move_head_in_points(yaws=[XXX, XXX], pitches=[XXX, XXX], rolls=[XXX, +++])"
+spot.move_head_in_points(yaws=[0, 0], pitches=[0, 0], rolls=[0, 1.0], sleep_after_point_reached=1)
+time.sleep(2)
+"spot.move_head_in_points(yaws=[XXX, XXX], pitches=[XXX, XXX], rolls=[XXX, ---])"
+spot.move_head_in_points(yaws=[0, 0], pitches=[0, 0], rolls=[0, -1.0], sleep_after_point_reached=1)
+time.sleep(2)
