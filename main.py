@@ -33,10 +33,10 @@ Idling
 """ 
 
 def main():
-    # if True:
-    from spot_controller import SpotController
-    with SpotController(username=SPOT_USERNAME, password=SPOT_PASSWORD, robot_ip=ROBOT_IP) as spot:
-        ws = create_connection("wss://6093-171-66-12-11.ngrok-free.app")
+    if True:
+    # from spot_controller import SpotController
+    # with SpotController(username=SPOT_USERNAME, password=SPOT_PASSWORD, robot_ip=ROBOT_IP) as spot:
+        ws = create_connection("wss://4c35-171-66-13-158.ngrok-free.app")
         ws.send("Hello, World")
         cam = CameraVideo(0, max_fps=1, height=360, width=480)
         while True:
