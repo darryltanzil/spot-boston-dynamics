@@ -4,7 +4,7 @@ import socket
 import subprocess
 import cv2
 import base64
-from wormhole.video.cameravideo import CameraVideo
+from wormholelite import CameraVideo
 from websocket import create_connection
 
 ROBOT_IP = "10.0.0.3"#os.environ['ROBOT_IP']
