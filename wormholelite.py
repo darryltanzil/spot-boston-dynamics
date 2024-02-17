@@ -2,14 +2,12 @@ import logging
 import numpy as np
 import time
 import traceback
-from typing import Callable
 
 import cv2
 import math
 import numpy as np
 import time
 from pathlib import Path
-from typing import Union
 
 
 #
@@ -17,7 +15,7 @@ from typing import Union
 #
 
 
-def blank_frame_color(width: int, height: int, color: tuple, pixel_size: int = 3):
+def blank_frame_color(width, height, colo, pixel_size = 3):
     """
     Set the current frame to a blank frame with a given color
     """
@@ -27,7 +25,7 @@ def blank_frame_color(width: int, height: int, color: tuple, pixel_size: int = 3
     return new_frame
 
 
-def blank_frame_color_rgb(width: int, height: int, r: int, g: int, b: int, pixel_size: int = 3):
+def blank_frame_color_rgb(width, height, r, g: intx, b: int, pixel_size: int = 3):
     """
     Set the current frame to a blank frame with a given color
     """
@@ -40,7 +38,7 @@ def blank_frame_color_rgb(width: int, height: int, r: int, g: int, b: int, pixel
 def draw_text(
     frame: np.ndarray,
     text: str,
-    position: tuple[int, int],
+    position,
     font_family: int = cv2.FONT_HERSHEY_SIMPLEX,
     font_size: float = 1,
     font_color: tuple = (255, 255, 255),
@@ -62,11 +60,11 @@ def draw_text(
 
 
 def draw_multiline_text(
-    frame: np.ndarray,
-    width: int,
-    height: int,
-    position: tuple[int, int],
-    text: Union[str, list[str]]
+    frame,
+    width,
+    height,
+    position,
+    text
 ):
     """
     Helper function to draw multiple lines of text at once. Automatically determines ideal rendering size
