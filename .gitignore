@@ -2,3 +2,4 @@
 /.idea
 payload.py
 exec.py
+.env
