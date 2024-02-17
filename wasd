@@ -1,5 +1,5 @@
-spot.move_head_in_points(yaws=[0], pitches=[-0.3], rolls=[0], sleep_after_point_reached=1)
-spot.move_to_goal(goal_x=1.0, goal_y=0)
-spot.move_by_velocity_control(v_x=0, v_y=0, v_rot=1.0, cmd_duration=2.0)
+spot.move_head_in_points(yaws=[0.2, 0], pitches=[0.3, 0], rolls=[-0.3, 0], sleep_after_point_reached=1)
+spot.move_to_goal(goal_x=0.5, goal_y=0)
+spot.move_by_velocity_control(v_x=0, v_y=0, v_rot=-1.0, cmd_duration=2.0)
 spot.stand_at_height(0.0)
 spot.make_stance(0.3, 0.3)

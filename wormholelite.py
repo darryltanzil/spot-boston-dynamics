@@ -25,7 +25,7 @@ def blank_frame_color(width, height, colo, pixel_size = 3):
     return new_frame
 
 
-def blank_frame_color_rgb(width, height, r, g: intx, b: int, pixel_size: int = 3):
+def blank_frame_color_rgb(width, height, r, g, b, pixel_size = 3):
     """
     Set the current frame to a blank frame with a given color
     """
@@ -36,13 +36,13 @@ def blank_frame_color_rgb(width, height, r, g: intx, b: int, pixel_size: int = 3
 
 
 def draw_text(
-    frame: np.ndarray,
-    text: str,
+    frame,
+    text,
     position,
-    font_family: int = cv2.FONT_HERSHEY_SIMPLEX,
-    font_size: float = 1,
-    font_color: tuple = (255, 255, 255),
-    font_stroke: int = 2
+    font_family = cv2.FONT_HERSHEY_SIMPLEX,
+    font_size = 1,
+    font_color = (255, 255, 255),
+    font_stroke = 2
 ):
     """
     Draws text at given location
@@ -108,7 +108,7 @@ def draw_multiline_text(
     return frame
 
 
-def draw_overlay(frame, overlay_image, position: tuple[int, int], overlay_size: tuple[int, int]):
+def draw_overlay(frame, overlay_image, position, overlay_size):
     """
     Draws a solid image ontop of another imge
     """
@@ -129,7 +129,7 @@ def draw_overlay(frame, overlay_image, position: tuple[int, int], overlay_size: 
     return frame
 
 
-def draw_transparent_overlay(frame, overlay_image, position: tuple[int, int], overlay_size: tuple[int, int]):
+def draw_transparent_overlay(frame, overlay_image, position, overlay_size):
     """
     Overlay an image with a transparency layer onto a frame
     Code adapted from: https://gist.github.com/clungzta/b4bbb3e2aa0490b0cfcbc042184b0b4e
@@ -164,7 +164,7 @@ def draw_transparent_overlay(frame, overlay_image, position: tuple[int, int], ov
     return frame
 
 
-def blend_frames(frame1: np.ndarray, frame2: np.ndarray, transparency=0.5):
+def blend_frames(frame1, frame2, transparency=0.5):
     """
     Blends two frames together with a transparency value
     """
@@ -325,29 +325,29 @@ class FrameController():
     Helper Class to Control Video Frame Rate
     """
 
-    def __init__(self, fps: float, print_fps: bool = False, sleep_func=None, fps_window_delta: float = 5.0):
+    def __init__(self, fps, print_fps = False, sleep_func=None, fps_window_delta = 5.0):
         # --- Core Functionality ---
         if fps <= 0.0:
             raise ValueError("FPS must be greater than 0!")
 
-        self.target_fps: float = fps
-        self.last_frame: float = time.time()
-        self.frame_time: float = 0.0
+        self.target_fps = fps
+        self.last_frame = time.time()
+        self.frame_time = 0.0
 
         # --- Sanity Checks for FPS ---
 
         # Instantaneous FPS
-        self.instantaneous_fps: float = math.inf
+        self.instantaneous_fps = math.inf
         # Average FPS
-        self.print_fps: bool = print_fps
-        self.start_time: float = time.time()
-        self.frames_rendered: int = 0
-        self.average_fps: float = math.inf
+        self.print_fps = print_fps
+        self.start_time = time.time()
+        self.frames_rendered = 0
+        self.average_fps = math.inf
         # Windowed FPS (FPS over X seconds)
-        self.fps_window_delta: float = fps_window_delta
-        self.fps_window_start: float = time.time()
-        self.fps_window_frames_rendered: int = 0
-        self.fps_window: float = math.inf
+        self.fps_window_delta = fps_window_delta
+        self.fps_window_start = time.time()
+        self.fps_window_frames_rendered = 0
+        self.fps_window = math.inf
 
         # --- Misc Stuff ---
 
@@ -399,33 +399,33 @@ class AbstractVideo():
 
     def __init__(
         self,
-        width: int,
-        height: int,
-        max_fps: float,
-        pixel_size: int = 3,
-        print_fps: bool = False,
+        width,
+        height,
+        max_fps,
+        pixel_size = 3,
+        print_fps = False,
         frame_modifiers=None,
         frame_subscribers=None
     ):
         # Basic Video Properties
-        self.width: int = width
-        self.pixel_size: int = pixel_size
-        self.height: int = height
-        self.max_fps: float = max_fps
-        self.print_fps: bool = print_fps
+        self.width = width
+        self.pixel_size = pixel_size
+        self.height = height
+        self.max_fps = max_fps
+        self.print_fps = print_fps
 
         # Sanity Check
         if 0 > self.width or 0 > self.height or 0 > self.max_fps:
             raise ValueError("Video Properties cannot smaller than 0!")
 
         # Video Information
-        self._frame: np.ndarray = np.zeros((width, height, self.pixel_size), np.uint8)
-        self.finished_frame: np.ndarray = self._frame
+        self._frame = np.zeros((width, height, self.pixel_size), np.uint8)
+        self.finished_frame = self._frame
 
         # Frame Modifiers -> List of functions that change the output video when a new frame arrives
-        self.frame_modifiers: list[Callable[[AbstractVideo], None]] = frame_modifiers or []
+        self.frame_modifiers = frame_modifiers or []
         # Frame Subscribers -> List of functions to call when a new frame arrives
-        self.frame_subscribers: list[Callable[[AbstractVideo], None]] = frame_subscribers or []
+        self.frame_subscribers = frame_subscribers or []
         # Set up Frame Controller
         self.frame_controller = FrameController(self.max_fps, print_fps=self.print_fps)
 
@@ -465,7 +465,7 @@ class AbstractVideo():
         return self.finished_frame
 
     # Set the current frame
-    def set_frame(self, frame: np.ndarray):
+    def set_frame(self, frame):
         # Sanity Check Frame Size
         if frame.size != self.width * self.height * self.pixel_size:
             raise ValueError(f"Frame Size Does Not Match! Frame Size: {frame.size}, Expected Size: {self.height * self.width * self.pixel_size}")
@@ -515,15 +515,15 @@ class CameraVideo(AbstractVideo):
 
     def __init__(
         self,
-        cam_id: int,
-        max_fps: Optional[float] = 30,
-        width: Optional[int] = None,
-        height: Optional[int] = None,
-        cv2_config: Optional[list[tuple[Any, Any]]] = None,
+        cam_id,
+        max_fps = 30,
+        width = None,
+        height = None,
+        cv2_config = None,
         **kwargs  # Any Additional Arguments for AbstractVideo
     ):
         # Basic Video Properties
-        self.cam_id: int = cam_id
+        self.cam_id = cam_id
 
         # Open Camera
         self.cap = cv2.VideoCapture(self.cam_id)
