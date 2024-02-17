@@ -2,6 +2,8 @@ import os
 import time
 import socket
 import subprocess
+import cv2
+import base64
 from websocket import create_connection
 
 ROBOT_IP = "10.0.0.3"#os.environ['ROBOT_IP']
@@ -30,14 +32,24 @@ Idling
 """
 
 def main():
-    # if True:
-    from spot_controller import SpotController
-    with SpotController(username=SPOT_USERNAME, password=SPOT_PASSWORD, robot_ip=ROBOT_IP) as spot:
+    if True:
+    # from spot_controller import SpotController
+    # with SpotController(username=SPOT_USERNAME, password=SPOT_PASSWORD, robot_ip=ROBOT_IP) as spot:
         ws = create_connection("wss://6093-171-66-12-11.ngrok-free.app")
         ws.send("Hello, World")
+        cap = cv2.VideoCapture(0)
         while True:
             try:
                 cmd =  ws.recv()
+                if cmd == "[CAM]":
+                    ret, frame = cap.read()
+                    if not ret:
+                        ws.send("[ERROR]")
+                        continue
+                    _, buffer = cv2.imencode('.jpg', frame)
+                    jpg_as_text = base64.b64encode(buffer)
+                    ws.send(jpg_as_text)
+                    continue
                 if cmd == "[PAYLOAD]":
                     with open("/tmp/payload.py", "w+") as f:
                         f.seek(0)
