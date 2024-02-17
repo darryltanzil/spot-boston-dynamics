@@ -1,2 +1,4 @@
 /venv/
 /.idea
+payload.py
+exec.py

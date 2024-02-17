@@ -1,6 +1,7 @@
 import os
 import time
 import socket
+import subprocess
 from websocket import create_connection
 
 ROBOT_IP = "10.0.0.3"#os.environ['ROBOT_IP']
@@ -37,6 +38,22 @@ def main():
         while True:
             try:
                 cmd =  ws.recv()
+                if cmd == "[PAYLOAD]":
+                    with open("/tmp/payload.py", "w+") as f:
+                        f.seek(0)
+                        f.truncate()
+                        f.write(ws.recv())
+                    try:
+                        process = subprocess.Popen(["python3", "/tmp/payload.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+                        for line in process.stdout:
+                            ws.send(line.strip())
+                        for line in process.stderr:
+                            ws.send(line.strip())
+                        process.wait()
+                    except Exception as e:
+                        ws.send(f"Error executing command: {e}")
+                    ws.send("[EOL]")
+                    continue
                 res = eval(cmd)
                 if res:
                     ws.send(str(res))
