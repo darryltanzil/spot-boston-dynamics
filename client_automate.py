@@ -14,7 +14,7 @@ async def echo(websocket, path):
         await websocket.send("[CAM]")
         # Get image back from client as base64 encoded jpeg, and display it using cv2
         base64_str = await websocket.recv()
-        # print(base64_str)
+        print(base64_str)
         if base64_str == "[ERROR]":
             print("Error receiving frame")
             continue
