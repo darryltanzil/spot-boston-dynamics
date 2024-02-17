@@ -30,7 +30,7 @@ Responding
 5. Convert response into Text-to-speech, play through speaker
 6. if possible, look at person and point to object 
 Idling
-"""
+""" 
 
 def main():
     if True:
@@ -43,8 +43,9 @@ def main():
             try:
                 cmd =  ws.recv()
                 if cmd == "[CAM]":
-                    ret, frame = cam.get_frame()
-                    jpg_as_text = base64.b64encode(cv2.imencode('.jpg', frame))
+                    frame = cam.get_frame()
+                    _, enc = cv2.imencode('.jpg', frame)
+                    jpg_as_text = base64.b64encode(enc)
                     print(jpg_as_text)
                     ws.send(jpg_as_text)
                     continue
