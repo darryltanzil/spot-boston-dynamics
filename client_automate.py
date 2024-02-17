@@ -14,12 +14,14 @@ async def echo(websocket, path):
         await websocket.send("[CAM]")
         # Get image back from client as base64 encoded jpeg, and display it using cv2
         base64_str = await websocket.recv()
+        # print(base64_str)
         if base64_str == "[ERROR]":
             print("Error receiving frame")
             continue
         img_bytes = base64.b64decode(base64_str)
         img_np = np.frombuffer(img_bytes, dtype=np.uint8)
         img = cv2.imdecode(img_np, cv2.IMREAD_COLOR)
+        # print(img.shape)
         cv2.imshow('Frame', img)
         if cv2.waitKey(1) & 0xFF == ord('q'): 
             break
