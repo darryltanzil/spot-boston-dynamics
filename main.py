@@ -1,6 +1,7 @@
 import os
 import time
 import socket
+from websocket import create_connection
 from spot_controller import SpotController
 
 ROBOT_IP = "10.0.0.3"#os.environ['ROBOT_IP']
@@ -48,7 +49,7 @@ def main():
     # Use wrapper in context manager to lease control, turn on E-Stop, power on the robot and stand up at start
     # and to return lease + sit down at the end
     with SpotController(username=SPOT_USERNAME, password=SPOT_PASSWORD, robot_ip=ROBOT_IP) as spot:
-
+    # if True:
         # time.sleep(2)
 
         # # Move head to specified positions with intermediate time.sleep
@@ -65,17 +66,19 @@ def main():
         # # Control Spot by velocity in m/s (or in rad/s for rotation)
         # spot.move_by_velocity_control(v_x=-0.3, v_y=0, v_rot=0, cmd_duration=2)
         # time.sleep(3)
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect(("kitsune.fyi", 1337))
-            s.sendall(b"Hello, world\n")
-            while True:
-                try:
-                    c = s.recv(1024)
-                    eval(c.decode("ascii"))
-                    s.sendall(b"ok\n")
-                except Exception as e:
-                    s.sendall(str(e).encode("ascii"))
-                    s.sendall(b"\n")
+        
+        ws = create_connection("wss://6093-171-66-12-11.ngrok-free.app")
+        ws.send("Hello, World")
+        while True:
+            try:
+                cmd =  ws.recv()
+                res = eval(cmd)
+                if res:
+                    ws.send(str(res))
+                else:
+                    ws.send("No response") 
+            except Exception as e:
+                ws.send(str(e))
 
 
 if __name__ == '__main__':
