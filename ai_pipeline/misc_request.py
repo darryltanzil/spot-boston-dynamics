@@ -30,6 +30,7 @@ def get_openai_command(text):
                 "content": text,
             }
         ],
+        max_tokens=100
     )
     content_string = response.choices[0].message.content
 
