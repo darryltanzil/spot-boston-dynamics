@@ -2,7 +2,7 @@ import speech_recognition as sr
 import os
 
 
-def listen_for_keyword(voice_callback):
+def listen_for_keyword():
     recognizer = sr.Recognizer()
     # microphone = sr.Microphone()
 
@@ -26,16 +26,16 @@ def listen_for_keyword(voice_callback):
         # if command.startswith("hey spot"):
             # Once the keyword is detected, continue listening for the command
             print("Keyword 'hey spot' detected.")
-            voice_callback(command)
+            return command
         else:
             print("Keyword not detected. Listening again.")
-            listen_for_keyword(voice_callback)
+            listen_for_keyword()
     except sr.UnknownValueError:
         print("Sorry, I could not understand the audio.")
-        listen_for_keyword(voice_callback)
+        listen_for_keyword()
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
-        listen_for_keyword(voice_callback)
+        listen_for_keyword()
 
 if __name__ == "__main__":
     listen_for_keyword(print)
