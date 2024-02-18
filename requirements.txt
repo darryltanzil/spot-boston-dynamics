@@ -4,3 +4,4 @@ openai
 opencv-python
 SpeechRecognition
 pyaudio
+gTTS

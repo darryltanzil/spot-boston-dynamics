@@ -1,5 +1,6 @@
 import speech_recognition as sr
 
+
 def listen_for_keyword(voice_callback):
     recognizer = sr.Recognizer()
     microphone = sr.Microphone()
