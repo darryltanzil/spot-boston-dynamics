@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import base64
 import json
+from input_delegator import rotateSpot, moveSpot
 import requests
 import cv2
 import re
@@ -21,6 +22,10 @@ def process_image():
     base64_image = snapshot_image()
     identified_image = identify_image(base64_image)
     if "message" not in identified_image:
+        if "radians" in identified_image:
+            rotateSpot(identified_image["radians"], identified_image["command"])
+        elif "metres" in identified_image:
+            moveSpot(identified_image["metres"], identified_image["command"])
         return process_image()
     else:
         return identified_image["message"]
@@ -76,21 +81,33 @@ def identify_image(base64_image):
         "Authorization": f"Bearer {api_key}"
     }
 
-    text = """
-    What does the poster on the window say?
-    If you are confident that it is readable: Keep it to 2 or 3 sentences, and return it as a JSON object in the form {"message":message_response}. Don't mention anything related to the camera in your response.
+    thingToRead = "flyer"
 
-    If you're not absolutely confident about everything that it says, suggest where to move the camera in order to position the poster 
-    on the window to the centre of the screen. The end goal is that the poster should be readable. Do this according to the following rules:
+    text = f"""
+    [What does the {thingToRead} say?]
+    If you are confident that it is readable: Keep it to 2 sentences, and return it as a JSON object in the form {{"message":message_response}}. Don't mention anything related to the camera in your response.
+
+    If you're not absolutely confident about everything that it says, suggest where to move the camera in order to position the {thingToRead} to the centre of the screen. 
+    The end goal is that the poster should be readable. Do this according to the following rules:
     If repositioning is needed, select one of the following commands: ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP',
     'TURN_DOWN']. 
-    The command should be formatted as {"command": command, "radians"?: radians_number, "metres"?: metres: metres_number} where metres is chosen if we select a MOVE command 
+    The command should be formatted as {{"command": command, "radians"?: radians_number, "metres"?: metres: metres_number}} where metres is chosen if we select a MOVE command 
     versus radians being chosen if we select a TURN command. 
-    If the poster on the window is too big to be read, MOVE_BACKWARD. 
-    If the poster on the window is too small to be read, MOVE_FORWARD. 
-    If the poster on the window is out of frame, either TURN_LEFT or TURN_RIGHT depending on what makes the poster more readable and more centered.
+    If the {thingToRead} is too big to be read, MOVE_BACKWARD. 
+    If the {thingToRead} is too small to be read, MOVE_FORWARD. 
+    If the {thingToRead} is not fully in the photo, either TURN_LEFT or TURN_RIGHT depending on what makes the poster more centered and easier to read.
     Only respond with the JSON object, and nothing else. Do not include ```json```.
     """
+
+    # terms like 'out of frame' and 'readable' are too vague. be more specific overall
+    # square brackets around main objective
+    # prompt is too long & is too much like english 
+    # llm doesn't necessarily know that words are on the poster 
+    # ask GPT for advice on the prompt framing 
+    # look up best practices for prompt engineering
+
+    
+
 
     # Keep it 2 to 3 sentences, and return it as a JSON object in the form {"message":message_response}
     # If you're not absolutely confident about everything that it says,
@@ -104,7 +121,7 @@ def identify_image(base64_image):
     # 'TURN_DOWN'] the radian value or the metre value is, at most, set to 1. 
     # If the poster on the window is too big to be read, MOVE_BACKWARD. 
     # If the poster on the window is too small to be read, MOVE_FORWARD. 
-    # If the poster on the window is out of frame, either TURN_LEFT or TURN_RIGHT depending on what makes the poster more readable.
+    # If the poster on the window is out of frame, either TURN_LEFT, TURN_RIGHT, TURN_UP or TURN_DOWN depending on what makes the poster more readable.
     # If the poster starts off as unreadable, the end goal is that the poster should be readable.
     # Only respond with the JSON object, and nothing else. Do not include
     # ```json ```.
