@@ -31,6 +31,7 @@ We learned a lot about Spot's SDK and how to interact with it.
 - implement facial recognition and object tracking properly
 - proper image recognition
 - obstacle avoidance in a field of moving objects/people
+- Implementation as a guard dog
 
 ## Technologies Used
 * Spot® - The Agile Mobile Robot
