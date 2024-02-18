@@ -16,6 +16,7 @@ There was also a slight scare when we initially thought DNS wasn't available for
 Learning how to engineer prompts and rapidly iterate to make it more accurate was a feat that we're proud of!
 
 ## What we learned
+We learned a lot about Spot's SDK and how to interact with it.
 
 ## What's next for Boston Dynamics "Hawkeye" Robot
 
