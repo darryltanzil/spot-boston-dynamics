@@ -19,6 +19,7 @@ Learning how to engineer prompts and rapidly iterate to make it more accurate wa
 ## What's next for Boston Dynamics "Hawkeye" Robot
 
 ## Technologies Used
+* Spot® - The Agile Mobile Robot
 * Spot SDK for control over hardware
 * Websockets for facial recognition
 * Ngrok for passing in websocket data
