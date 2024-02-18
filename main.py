@@ -33,8 +33,8 @@ Responding
 Idling
 """ 
 
-def voice_callback(message):
-    get
+# def voice_callback(message):
+    # get
 
 def main():
     if True:
