@@ -31,7 +31,6 @@ We believe that we could've used Spot to its full potential if we had more time.
 * Docker for easy containerization
 * GPT-4's vision & turbo preview models
 * JSON for an intermediary data transfer format
-* Implementation as a guard dog
 
 
 ## Gallery
