@@ -72,12 +72,13 @@ def delegate_input(text, spot):
     if content_dict["type"] == "image_process":
         return process_image(spot)
     elif content_dict["type"] == "movement":
-        command = get_command_and_movement(content_dict["prompt"])
-        if "message" not in command:
-            if "radians" in command:
-                rotateSpot(command["radians"], command["command"], spot)
-            elif "metres" in command:
-                moveSpot(command["metres"], command["command"], spot)
+        commands = get_command_and_movement(content_dict["prompt"])
+        for command in commands["actions"]:
+            if "message" not in command:
+                if "radians" in command:
+                    rotateSpot(command["radians"], command["command"], spot)
+                elif "metres" in command:
+                    moveSpot(command["metres"], command["command"], spot)
     else:
         return get_openai_command(content_dict["prompt"])
 
