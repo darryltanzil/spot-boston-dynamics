@@ -12,6 +12,7 @@ We used Spot's SDK to figure out basic movement and how to deploy it, creating s
 There were some intermittent internet connections and a slight scare when we initially thought DNS wasn't available for code running on Spot's hardware. 
 
 ## Accomplishments that we're proud of
+Learning how to engineer prompts and rapidly iterate to make it more accurate was a feat that we're proud of!
 
 ## What we learned
 
