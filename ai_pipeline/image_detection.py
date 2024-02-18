@@ -107,7 +107,6 @@ def identify_image(base64_image):
     Only respond with the JSON object, and nothing else. Do not include ```json```.
     """
 
-<<<<<<< HEAD:openai/image-detection.py
     # terms like 'out of frame' and 'readable' are too vague. be more specific overall
     # square brackets around main objective
     # prompt is too long & is too much like english 
@@ -118,8 +117,6 @@ def identify_image(base64_image):
     
 
 
-=======
->>>>>>> 2d60097ab9bb45a18092aa4c18f3fb965e2f16f5:ai_pipeline/image_detection.py
     # Keep it 2 to 3 sentences, and return it as a JSON object in the form {"message":message_response}
     # If you're not absolutely confident about everything that it says,
     # suggest where to move the camera to position the poster on the window to the centre of the screen.
@@ -166,12 +163,8 @@ def identify_image(base64_image):
 
 
 def main():
-<<<<<<< HEAD:openai/image-detection.py
-    img_response = identify_image("../test_images/QR3.jpg")
-=======
     # img_response = identify_image("../test_images/shitty_poster3.jpg")
     img_response = process_image()
->>>>>>> 2d60097ab9bb45a18092aa4c18f3fb965e2f16f5:ai_pipeline/image_detection.py
     json_response = json.loads(img_response)
     print(json_response)
 
