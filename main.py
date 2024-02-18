@@ -48,17 +48,17 @@ def main():
         globals()["spot_global"] = spot
         ws = create_connection("wss://737c-171-66-13-247.ngrok-free.app", ping_timeout=None)
         ws.send("Hello, World")
-        cam = CameraVideo(0, max_fps=1, height=360, width=480)
+        # cam = CameraVideo(0, max_fps=1, height=360, width=480)
         while True:
             try:
                 cmd =  ws.recv()
-                if cmd == "[CAM]":
-                    frame = cam.get_frame()
-                    _, enc = cv2.imencode('.jpg', frame)
-                    jpg_as_text = base64.b64encode(enc)
-                    # print(jpg_as_text)
-                    ws.send(jpg_as_text)
-                    continue
+                # if cmd == "[CAM]":
+                #     frame = cam.get_frame()
+                #     _, enc = cv2.imencode('.jpg', frame)
+                #     jpg_as_text = base64.b64encode(enc)
+                #     # print(jpg_as_text)
+                #     ws.send(jpg_as_text)
+                #     continue
                 if cmd == "[PAYLOAD]":
                     with open("/tmp/payload.py", "w+") as f:
                         f.seek(0)
