@@ -82,5 +82,3 @@ def delegate_input(text, spot):
         return get_openai_command(content_dict["prompt"])
 
 # playAudio(delegate_input("Hey spot, move to the left a little"))
-
-delegate_input("Move forward", None)
