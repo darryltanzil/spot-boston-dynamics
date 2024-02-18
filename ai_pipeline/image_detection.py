@@ -14,6 +14,15 @@ client = OpenAI(
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
 
+# command is one of ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP', 'TURN_DOWN']
+def moveSpot(metres, command):
+    print(metres)
+    print(command)
+
+def rotateSpot(radians, command):
+    print(radians)
+    print(command)
+
 def process_image():
     """
     Call this method whenever you want to screenshot and process whatever the robot is looking at right now.
@@ -21,6 +30,10 @@ def process_image():
     base64_image = snapshot_image()
     identified_image = identify_image(base64_image)
     if "message" not in identified_image:
+        if "radians" in identified_image:
+            rotateSpot(identified_image["radians"], identified_image["command"])
+        elif "metres" in identified_image:
+            moveSpot(identified_image["metres"], identified_image["command"])
         return process_image()
     else:
         return identified_image["message"]

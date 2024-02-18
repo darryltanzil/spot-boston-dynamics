@@ -82,4 +82,7 @@ def delegate_input(text):
     else:
         return get_openai_command(content_dict["prompt"])
 
-print(delegate_input("Hey spot, what's 9 + 10"))
+def playAudio(text):
+    print(text)
+
+playAudio(delegate_input("What's 9 + 10"))
