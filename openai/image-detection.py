@@ -4,6 +4,7 @@ from openai import OpenAI
 import base64
 import json
 import requests
+import cv2
 import re
 
 load_dotenv()
@@ -12,6 +13,46 @@ client = OpenAI(
     # This is the default and can be omitted
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
+def process_image():
+    """
+    Call this method whenever you want to screenshot and process whatever the robot is looking at right now.
+    """
+    base64_image = snapshot_image()
+    return identify_image(base64_image)
+
+def snapshot_image():
+    """
+    Takes a snapshot using the Open CV 2 library.
+    """
+
+    cap = cv2.VideoCapture(1)
+    if not cap.isOpened():
+        print("Error: Could not open camera.")
+        return None
+
+    # Read a frame from the camera
+    ret, frame = cap.read()
+
+    # Release the camera
+    cap.release()
+
+    # Check if the frame was captured successfully
+    if ret:
+        # Encode the image as a JPEG
+        _, buffer = cv2.imencode('.jpg', frame)
+
+        cv2.imwrite("test", frame)
+
+        # Encode the image as a JPEG
+        # Convert the JPEG buffer to a base64 string
+        jpg_as_text = base64.b64encode(buffer).decode('utf-8')
+
+        # Return the base64 string
+        return jpg_as_text
+    else:
+        print("Error: Could not capture an image.")
+        return None
+
 
 """
 Identifies the object in an image using the OpenAI API's image recognition model.
@@ -22,16 +63,8 @@ Parameters:
 Returns:
 - dict: A dictionary containing the identified object and its characteristics.
 """
-def identify_image(image_path):
+def identify_image(base64_image):
     api_key = os.environ.get("OPENAI_API_KEY")
-
-    # Function to encode the image
-    def encode_image(image_path):
-        with open(image_path, "rb") as image_file:
-            return base64.b64encode(image_file.read()).decode('utf-8')
-
-    # Getting the base64 string
-    base64_image = encode_image(image_path)
 
     headers = {
         "Content-Type": "application/json",
@@ -54,7 +87,6 @@ def identify_image(image_path):
     Only respond with the JSON object, and nothing else. Do not include ```json```.
     """
 
-
     # Keep it 2 to 3 sentences, and return it as a JSON object in the form {"message":message_response}
     # If you're not absolutely confident about everything that it says,
     # suggest where to move the camera to position the poster on the window to the centre of the screen.
@@ -71,7 +103,7 @@ def identify_image(image_path):
     # If the poster starts off as unreadable, the end goal is that the poster should be readable.
     # Only respond with the JSON object, and nothing else. Do not include
     # ```json ```.
-    
+
     payload = {
         "model": "gpt-4-vision-preview",
         "messages": [
@@ -99,10 +131,13 @@ def identify_image(image_path):
     # returns as a python dictionary
     return response.json()['choices'][0]['message']['content']
 
+
 def main():
-    img_response = identify_image("../test_images/shitty_poster3.jpg")
+    # img_response = identify_image("../test_images/shitty_poster3.jpg")
+    img_response = process_image()
     json_response = json.loads(img_response)
     print(json_response)
+
 
 if __name__ == "__main__":
     main()
