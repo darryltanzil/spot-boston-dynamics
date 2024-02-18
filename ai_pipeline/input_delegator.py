@@ -78,10 +78,10 @@ def delegate_input(text, spot):
             if "message" not in command:
                 if "radians" in command:
                     rotateSpot(command["radians"], command["command"], spot)
-                    time.sleep(2.5)
+                    time.sleep(1.5)
                 elif "metres" in command:
                     moveSpot(command["metres"], command["command"], spot)
-                    time.sleep(2.5)
+                    time.sleep(1.5)
 
     else:
         return get_openai_command(content_dict["prompt"])
