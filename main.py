@@ -6,7 +6,7 @@ import cv2
 import base64
 from wormholelite import CameraVideo
 from websocket import create_connection
-from ai_pipeline.image_detection import *
+# from ai_pipeline.image_detection import *
 
 ROBOT_IP = "10.0.0.3"#os.environ['ROBOT_IP']
 SPOT_USERNAME = "admin"#os.environ['SPOT_USERNAME']
