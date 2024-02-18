@@ -13,9 +13,9 @@ def moveSpot(metres, command, spot):
 
 def rotateSpot(radians, command, spot):
     if command == "TURN_LEFT":
-        spot.move_by_velocity_control(v_x=0, v_y=0, v_rot=max(1.0, radians), cmd_duration=radians)
+        spot.move_by_velocity_control(v_x=0, v_y=0, v_rot=0.5, cmd_duration=radians)
     elif command == "TURN_RIGHT":
-        spot.move_by_velocity_control(v_x=0, v_y=0, v_rot=-max(1.0, radians), cmd_duration=radians)
+        spot.move_by_velocity_control(v_x=0, v_y=0, v_rot=-0.5, cmd_duration=radians)
     elif command == "TURN_DOWN":
         spot.move_head_in_points(yaws=[0], pitches=[max(1.0, radians)], rolls=[0])
     elif command == "TURN_UP":
