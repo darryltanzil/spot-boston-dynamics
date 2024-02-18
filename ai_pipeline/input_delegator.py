@@ -2,10 +2,10 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from enum import Enum
-from bot_handler import moveSpot, rotateSpot, playAudio
-from image_detection import process_image
-from misc_request import get_openai_command
-from move_process import get_command_and_movement
+from ai_pipeline.bot_handler import moveSpot, rotateSpot, playAudio
+from ai_pipeline.image_detection import process_image
+from ai_pipeline.misc_request import get_openai_command
+from ai_pipeline.move_process import get_command_and_movement
 import json
 
 load_dotenv()
@@ -81,4 +81,4 @@ def delegate_input(text):
     else:
         return get_openai_command(content_dict["prompt"])
 
-playAudio(delegate_input("Hey spot, move to the left a little"))
+# playAudio(delegate_input("Hey spot, move to the left a little"))
