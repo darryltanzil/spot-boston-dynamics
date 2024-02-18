@@ -59,8 +59,6 @@ def delegate_input(text, spot):
 
     print(response)
 
-    return
-
     # Assuming 'response' is the response from the OpenAI API
     content_string = response.choices[0].message.content
 
