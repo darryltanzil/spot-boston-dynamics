@@ -29,3 +29,10 @@ Learning how to engineer prompts and rapidly iterate to make it more accurate wa
 * GPT-4's vision & turbo preview models
 * JSON for an intermediary data transfer format
 
+## Gallery
+<img width="545" alt="image" src="https://github.com/darryltanzil/spot-boston-dynamics/assets/5387769/cdf53bf4-1ad2-40d3-9717-0880b02d24f3">
+Boston Dynamics Robot with Speakers & Webcam attached
+![image](https://github.com/darryltanzil/spot-boston-dynamics/assets/5387769/a18ae56c-429d-48d2-a604-e42640652cad)
+Initial Sketches for Software
+
+
