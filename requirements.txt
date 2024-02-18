@@ -3,3 +3,4 @@ python-dotenv
 openai
 opencv-python
 SpeechRecognition
+pyaudio
