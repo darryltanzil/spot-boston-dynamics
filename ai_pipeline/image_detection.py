@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import base64
 import json
-from input_delegator import rotateSpot, moveSpot
+from bot_handler import moveSpot, rotateSpot
 import requests
 import cv2
 import re

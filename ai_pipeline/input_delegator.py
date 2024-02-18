@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from enum import Enum
+from bot_handler import moveSpot, rotateSpot, playAudio
 from image_detection import process_image
 from misc_request import get_openai_command
 from move_process import get_command_and_movement
@@ -23,18 +24,6 @@ class Commands(Enum):
     TURN_RIGHT = "TURN_RIGHT"
     TURN_FORWARD = "TURN_UP"
     TURN_BACKWARD = "TURN_DOWN"
-
-# command is one of ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP', 'TURN_DOWN']
-def moveSpot(metres, command):
-    print(metres)
-    print(command)
-
-def rotateSpot(radians, command):
-    print(radians)
-    print(command)
-
-def playAudio(text):
-    print(text)
 
 """
 Extracts command and movement information from a given text string using the OpenAI API.
@@ -83,8 +72,13 @@ def delegate_input(text):
     if content_dict["type"] == "image_process":
         return process_image()
     elif content_dict["type"] == "movement":
-        return get_command_and_movement(content_dict["prompt"])
+        command = get_command_and_movement(content_dict["prompt"])
+        if "message" not in command:
+            if "radians" in command:
+                rotateSpot(command["radians"], command["command"])
+            elif "metres" in command:
+                moveSpot(command["metres"], command["command"])
     else:
         return get_openai_command(content_dict["prompt"])
 
-playAudio(delegate_input("What's 9 + 10"))
+playAudio(delegate_input("Hey spot, move to the left a little"))
