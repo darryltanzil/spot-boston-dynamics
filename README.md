@@ -1,4 +1,4 @@
-# Boston Dynamics Senior Robot
+# Boston Dynamics "Hawkeye" Robot
 
 For Stanford's TreeHacks 2024, we created Boston Dynamics software which uses object & face recognition combined with Open AI's vision and turbo preview AI models to allow seniors and the visually impaired to read signage they wouldn't be able to otherwise.
 
@@ -16,7 +16,7 @@ Learning how to engineer prompts and rapidly iterate to make it more accurate wa
 
 ## What we learned
 
-## What's next for Boston Dynamics Senior Companion
+## What's next for Boston Dynamics "Hawkeye" Robot
 
 ## Technologies Used
 * Spot SDK for control over hardware
