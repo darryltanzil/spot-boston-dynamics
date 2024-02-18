@@ -59,6 +59,8 @@ def delegate_input(text, spot):
 
     print(response)
 
+    return
+
     # Assuming 'response' is the response from the OpenAI API
     content_string = response.choices[0].message.content
 
@@ -82,3 +84,5 @@ def delegate_input(text, spot):
         return get_openai_command(content_dict["prompt"])
 
 # playAudio(delegate_input("Hey spot, move to the left a little"))
+
+delegate_input("Move forward", None)

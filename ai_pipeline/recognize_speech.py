@@ -13,7 +13,7 @@ def listen_for_keyword():
     
     print("Listening for 'hey spot'...")
     os.system("ffplay -autoexit audio/spot1.mp3")
-    os.system(f"arecord -vv --format=cd --device={os.environ['AUDIO_INPUT_DEVICE']} -r 48000 --duration=5 -c 1 /tmp/temp.mp3")
+    os.system(f"arecord -vv --format=cd --device={os.environ['AUDIO_INPUT_DEVICE']} -r 48000 --duration=7 -c 1 /tmp/temp.mp3")
     with sr.AudioFile("/tmp/temp.mp3") as source:
         audio = recognizer.record(source)
 
