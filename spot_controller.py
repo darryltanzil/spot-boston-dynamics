@@ -172,4 +172,30 @@ class SpotController:
                                  sleep_after_point_reached=sleep_after_point_reached, timeout=3)
 
     def dust_off(self, yaws, pitches, rolls):
-        self.move_head_in_points(yaws, pitches, rolls, sleep_after_point_reached=0, body_height=0)
+        self.move_head_in_points(yaws, pitches, rolls, sleep_after_point_reached=0, body_height=0)    
+
+    def make_stance(self):
+        x_offset = 0.2
+        y_offset = 0.2
+        state = self.state_client.get_robot_state()
+        vo_T_body = get_se2_a_tform_b(state.kinematic_state.transforms_snapshot,
+                                      VISION_FRAME_NAME,
+                                      GRAV_ALIGNED_BODY_FRAME_NAME)
+
+        pos_fl_rt_vision = vo_T_body * math_helpers.SE2Pose(x_offset, y_offset, 0)
+        pos_fr_rt_vision = vo_T_body * math_helpers.SE2Pose(x_offset, -y_offset, 0)
+        pos_hl_rt_vision = vo_T_body * math_helpers.SE2Pose(-x_offset, y_offset, 0)
+        pos_hr_rt_vision = vo_T_body * math_helpers.SE2Pose(-x_offset, -y_offset, 0)
+
+        stance_cmd = RobotCommandBuilder.stance_command(
+            VISION_FRAME_NAME, pos_fl_rt_vision.position,
+            pos_fr_rt_vision.position, pos_hl_rt_vision.position, pos_hr_rt_vision.position)
+
+        start_time = time.time()
+        while time.time() - start_time < 6:
+            # Update end time
+            stance_cmd.synchronized_command.mobility_command.stance_request.end_time.CopyFrom(
+                self.robot.time_sync.robot_timestamp_from_local_secs(time.time() + 5))
+            # Send the command
+            self.command_client.robot_command(stance_cmd)
+            time.sleep(0.1)
