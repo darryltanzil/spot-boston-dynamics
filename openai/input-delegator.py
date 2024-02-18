@@ -21,6 +21,13 @@ class Commands(Enum):
     TURN_FORWARD = "TURN_UP"
     TURN_BACKWARD = "TURN_DOWN"
 
+
+
+# CHANGE UNIT TO METRES FOR MOVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# radians for turning is good though
+
+
+
 """
 Extracts command and movement information from a given text string using the OpenAI API.
 

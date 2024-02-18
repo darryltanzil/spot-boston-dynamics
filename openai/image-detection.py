@@ -40,21 +40,38 @@ def identify_image(image_path):
 
     text = """
     What does the poster on the window say?
-    Keep it 2 to 3 sentences, and return it as a JSON object in the form {"message":message_response}
-    If you're not absolutely confident about everything that it says,
-    suggest where to move the camera to position the object to the centre of the screen.
-    If you are confident, don't mention anything related to the camera in your response.
-    If repositioning is needed, produce a list of commands 
-    {"command": command, "radians": radians_number} where the command value is one of the following commands:
-    ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP',
-    'TURN_DOWN'] and whose radian value is, at most, set to 1. 
+    If you are confident that it is readable: Keep it to 2 or 3 sentences, and return it as a JSON object in the form {"message":message_response}. Don't mention anything related to the camera in your response.
+
+    If you're not absolutely confident about everything that it says, suggest where to move the camera in order to position the poster 
+    on the window to the centre of the screen. The end goal is that the poster should be readable. Do this according to the following rules:
+    If repositioning is needed, select one of the following commands: ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP',
+    'TURN_DOWN']. 
+    The command should be formatted as {"command": command, "radians"?: radians_number, "metres"?: metres: metres_number} where metres is chosen if we select a MOVE command 
+    versus radians being chosen if we select a TURN command. 
     If the poster on the window is too big to be read, MOVE_BACKWARD. 
     If the poster on the window is too small to be read, MOVE_FORWARD. 
-    If the poster on the window is out of frame, either TURN_LEFT or TURN_RIGHT depending on what makes the poster more readable.
-    If the poster starts off as unreadable, the end goal is that the poster should be readable.
-    Only respond with the JSON object, and nothing else. Do not include
-    ```json ```.
+    If the poster on the window is out of frame, either TURN_LEFT or TURN_RIGHT depending on what makes the poster more readable and more centered.
+    Only respond with the JSON object, and nothing else. Do not include ```json```.
     """
+
+
+    # Keep it 2 to 3 sentences, and return it as a JSON object in the form {"message":message_response}
+    # If you're not absolutely confident about everything that it says,
+    # suggest where to move the camera to position the poster on the window to the centre of the screen.
+    # If you are confident, don't mention anything related to the camera in your response.
+    # If repositioning is needed, produce a list of commands 
+    # {"command": command, "radians"?: radians_number, "metres"?: metres: metres_number} where metres is chosen if we select a MOVE command 
+    # versus radians being chosen if we select a TURN command. 
+    # the command value is one of the following commands:
+    # ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP',
+    # 'TURN_DOWN'] the radian value or the metre value is, at most, set to 1. 
+    # If the poster on the window is too big to be read, MOVE_BACKWARD. 
+    # If the poster on the window is too small to be read, MOVE_FORWARD. 
+    # If the poster on the window is out of frame, either TURN_LEFT or TURN_RIGHT depending on what makes the poster more readable.
+    # If the poster starts off as unreadable, the end goal is that the poster should be readable.
+    # Only respond with the JSON object, and nothing else. Do not include
+    # ```json ```.
+    
     payload = {
         "model": "gpt-4-vision-preview",
         "messages": [

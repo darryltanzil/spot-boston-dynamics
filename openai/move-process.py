@@ -30,6 +30,11 @@ Parameters:
 Returns:
 - dict: A dictionary with the extracted command and movement information.
 """
+
+# CHANGE UNIT TO METRES FOR MOVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# radians for turning is good though
+
+
 def get_command_and_movement(text):
     enum_looped = [e.value for e in Commands]
     prompt = """
