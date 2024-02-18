@@ -48,9 +48,10 @@ def identify_image(image_path):
     'TURN_DOWN']. 
     The command should be formatted as {"command": command, "radians"?: radians_number, "metres"?: metres: metres_number} where metres is chosen if we select a MOVE command 
     versus radians being chosen if we select a TURN command. 
-    If the poster on the window is too big to be read, MOVE_BACKWARD. 
-    If the poster on the window is too small to be read, MOVE_FORWARD. 
-    If the poster on the window is out of frame, either TURN_LEFT or TURN_RIGHT depending on what makes the poster more readable and more centered.
+    If the poster on the wall is too big to be read, MOVE_BACKWARD. 
+    If the poster on the wall is too small to be read, MOVE_FORWARD. 
+    Remember to consider the angle - you are a height-limited robot that has limited perspective. If you are trying to move forward at a very upward angle, you likely cannot do so. In such a situation, simply read the image and say what is in it. Do not suggest anymore movements in this case.
+    If the poster on the wall is out of frame or about to go out of frame, either TURN_LEFT or TURN_RIGHT depending on what makes the poster more readable and more centered.
     Only respond with the JSON object, and nothing else. Do not include ```json```.
     """
 
@@ -76,6 +77,15 @@ def identify_image(image_path):
         "model": "gpt-4-vision-preview",
         "messages": [
             {
+                "role": "system",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "You are a Boston Dynamics robot. You are in a room with a wall. There is a poster on the wall. You are trying to read the poster on the wall, and must reposition yourself to do so with the goal reading the poster clearly, or must tell the user what the poster says. You cannot jump, and you will most likely need to look up at the poster - do not move forward or turn too much to the point of overshooting the poster. If the poster is readable enough, tell the user."
+                    }
+                ]
+            },
+            {
                 "role": "user",
                 "content": [
                     {
@@ -100,7 +110,7 @@ def identify_image(image_path):
     return response.json()['choices'][0]['message']['content']
 
 def main():
-    img_response = identify_image("../test_images/shitty_poster3.jpg")
+    img_response = identify_image("../test_images/Photo on 2024-02-17 at 5.13 PM.jpg")
     json_response = json.loads(img_response)
     print(json_response)
 
