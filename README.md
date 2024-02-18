@@ -19,7 +19,7 @@ Learning how to engineer prompts and rapidly iterate to make it more accurate wa
 ## What we learned
 By using Spot's and its SDK, we worked with a lot of hardware which we otherwise would never have access to. We learnt a lot about the physical sensors and I/O onboard. Moreover, it was the first time working with facial and object recognition libraries for a lot of us. Finally, we became much more proficient with GPT APIs.
 
-## What's next for Boston Dynamics "Hawkeye" Robot
+## What's next for Hawkeye
 Looking ahead, we envision further refining Hawkeye by incorporating dynamic object tracking along with facial recognition tech to improve the breadth of human-assistance tasks. This would allow it to dynamically change its motion to avoid moving obstacles (e.g., people in a moving crowd). Spot has huge potential as a guide dog once combined with AI, being able to talk to and guide its owner — with Hawkeye’s interaction software, we believe this level of robotics collaboration will shape the future.
 
 ## Technologies Used
