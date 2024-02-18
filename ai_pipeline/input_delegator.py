@@ -7,6 +7,7 @@ from ai_pipeline.image_detection import process_image
 from ai_pipeline.misc_request import get_openai_command
 from ai_pipeline.move_process import get_command_and_movement
 import json
+import time
 
 load_dotenv()
 
@@ -77,8 +78,11 @@ def delegate_input(text, spot):
             if "message" not in command:
                 if "radians" in command:
                     rotateSpot(command["radians"], command["command"], spot)
+                    time.sleep(2.5)
                 elif "metres" in command:
                     moveSpot(command["metres"], command["command"], spot)
+                    time.sleep(2.5)
+
     else:
         return get_openai_command(content_dict["prompt"])
 
