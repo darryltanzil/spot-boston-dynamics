@@ -14,9 +14,9 @@ RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
 
 COPY requirements.txt requirements.txt
-RUN sudo apt-get install -y portaudio19
-RUN sudo apt-get install -y python3-pyaudio
-RUN sudo apt-get install -y flac
+# RUN sudo apt-get install -y portaudio19
+RUN apt-get install -y python3-pyaudio
+RUN apt-get install -y flac
 RUN python3.8 -m pip install -r requirements.txt
 COPY . .
 
