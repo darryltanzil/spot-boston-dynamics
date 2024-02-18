@@ -13,12 +13,17 @@ client = OpenAI(
     # This is the default and can be omitted
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
+
 def process_image():
     """
     Call this method whenever you want to screenshot and process whatever the robot is looking at right now.
     """
     base64_image = snapshot_image()
-    return identify_image(base64_image)
+    identified_image = identify_image(base64_image)
+    if "message" not in identified_image:
+        return process_image()
+    else:
+        return identified_image["message"]
 
 def snapshot_image():
     """

@@ -90,7 +90,6 @@ def main():
         "movement": result["radians"],
         "command": Commands[result["command"]].value
     }
-    print(img_response)
 
 if __name__ == "__main__":
     main()
