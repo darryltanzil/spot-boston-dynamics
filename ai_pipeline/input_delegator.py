@@ -40,12 +40,9 @@ Returns:
 def get_command_and_movement(text):
     enum_looped = [e.value for e in Commands]
     prompt = """
-            Given the following string of text, produce a JSON object array in the format {"command":command, "radians": radians_number} where the command value is
-    one of the following commands: ['MOVE_LEFT', 'MOVE_RIGHT', 'MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP', 'TURN_DOWN']
-    and whose radian value represents a number from the range 0 to 360. 
-
-    However, if the user doesn't specify a number (e.g. they say "turn right a little bit"), use your judgement to determine a suitable number for the output in the range.
-            """
+    Given the following string of text, determine whether it is focused on asking for an image, asking for movement, or asking for a general inquiry.
+    If it's focused on
+           """
 
     print(prompt)
 

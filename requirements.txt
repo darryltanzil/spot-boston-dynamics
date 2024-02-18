@@ -2,3 +2,4 @@ websocket-client
 python-dotenv
 openai
 opencv-python
+SpeechRecognition
