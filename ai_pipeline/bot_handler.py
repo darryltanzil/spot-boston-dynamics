@@ -4,13 +4,21 @@ from gtts import gTTS
 # command is one of ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP', 'TURN_DOWN']
 def moveSpot(metres, command):
     spot = globals().get("spot_global", None)
-    spot.move_to_goal(goal_x=0.3, goal_y=0)
+    # spot.move_to_goal(goal_x=0.3, goal_y=0)
+    if command == "MOVE_FORWARD":
+        spot.move_to_goal(goal_x=metres, goal_y=0)
+    elif command == "MOVE_BACKWARD":
+        spot.move_to_goal(goal_x=-metres, goal_y=0)
     print(metres)
     print(command)
 
 def rotateSpot(radians, command):
     spot = globals().get("spot_global", None)
-    spot.move_to_goal(goal_x=-0.3, goal_y=0)
+    # spot.move_to_goal(goal_x=-0.3, goal_y=0)
+    if command == "TURN_LEFT":
+        spot.move_by_velocity_control(v_x=0, v_y=0, v_rot=0.5, cmd_duration=1.0)
+    elif command == "TURN_RIGHT":
+        spot.move_by_velocity_control(v_x=0, v_y=0, v_rot=-0.5, cmd_duration=1.0)
     print(radians)
     print(command)
 

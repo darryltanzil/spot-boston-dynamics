@@ -41,12 +41,13 @@ Idling
     # get
 
 def main():
-    if True:
-    # from spot_controller import SpotController
-    # with SpotController(username=SPOT_USERNAME, password=SPOT_PASSWORD, robot_ip=ROBOT_IP) as spot:
+    # if True:
+    from spot_controller import SpotController
+    with SpotController(username=SPOT_USERNAME, password=SPOT_PASSWORD, robot_ip=ROBOT_IP) as spot:
+        globals()["spot_global"] = spot
         ws = create_connection("wss://737c-171-66-13-247.ngrok-free.app", ping_timeout=None)
         ws.send("Hello, World")
-        # cam = CameraVideo(0, max_fps=1, height=360, width=480)
+        cam = CameraVideo(0, max_fps=1, height=360, width=480)
         while True:
             try:
                 cmd =  ws.recv()
