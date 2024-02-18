@@ -4,6 +4,8 @@ import socket
 import subprocess
 import cv2
 import base64
+import sys
+import traceback
 from wormholelite import CameraVideo
 from websocket import create_connection
 from ai_pipeline.input_delegator import delegate_input
@@ -81,6 +83,7 @@ def main():
                 else:
                     ws.send("None") 
             except Exception as e:
+                print(traceback.format_exc())
                 ws.send(str(e))
 
 
