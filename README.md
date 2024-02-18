@@ -1,4 +1,4 @@
-# Boston Dynamics Senior Companion
+# Boston Dynamics Senior Robot
 
 For Stanford's TreeHacks 2024, we created Boston Dynamics software which uses object & face recognition combined with Open AI's vision and turbo preview AI models to allow seniors and the visually impaired to read signage they wouldn't be able to otherwise.
 
