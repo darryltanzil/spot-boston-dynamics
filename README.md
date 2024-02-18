@@ -1,6 +1,6 @@
 # Boston Dynamics Senior Companion
 
-For Stanford's TreeHacks 2024, we created Boston Dynamics software which uses object & face recognition combined with Open AI's artificial intelligence to allow seniors and the visually impaired to read signage they wouldn't be able to otherwise.
+For Stanford's TreeHacks 2024, we created Boston Dynamics software which uses object & face recognition combined with Open AI's vision and turbo preview AI models to allow seniors and the visually impaired to read signage they wouldn't be able to otherwise.
 
 ## What it does
 The user states "Hey Spot, can you move a little closer?" and Spot, the dynamic robot comes towards him. Spot acts as the user's eyes, analyzing the environment through a series of snapshots and software which determines whether to move closer and rotate its head in any direction. Once a clear view of the signage/poster is seen, Spot states what the contents of the signage is through the speakers attached on its back.
