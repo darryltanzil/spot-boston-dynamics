@@ -10,7 +10,8 @@ from ai_pipeline.input_delegator import delegate_input
 from ai_pipeline.recognize_speech import listen_for_keyword
 from ai_pipeline.bot_handler import playAudio
 
-# playAudio(delegate_input(listen_for_keyword()))
+def start(spot):
+    playAudio(delegate_input(listen_for_keyword(), spot))
 
 ROBOT_IP = "10.0.0.3"#os.environ['ROBOT_IP']
 SPOT_USERNAME = "admin"#os.environ['SPOT_USERNAME']

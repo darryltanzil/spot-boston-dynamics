@@ -15,7 +15,7 @@ client = OpenAI(
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
 
-def process_image():
+def process_image(spot):
     """
     Call this method whenever you want to screenshot and process whatever the robot is looking at right now.
     """
@@ -23,9 +23,9 @@ def process_image():
     identified_image = identify_image(base64_image)
     if "message" not in identified_image:
         if "radians" in identified_image:
-            rotateSpot(identified_image["radians"], identified_image["command"])
+            rotateSpot(identified_image["radians"], identified_image["command"], spot)
         elif "metres" in identified_image:
-            moveSpot(identified_image["metres"], identified_image["command"])
+            moveSpot(identified_image["metres"], identified_image["command"], spot)
         return process_image()
     else:
         return identified_image["message"]
@@ -154,12 +154,12 @@ def identify_image(base64_image):
     return response.json()['choices'][0]['message']['content']
 
 
-def main():
-    # img_response = identify_image("../test_images/shitty_poster3.jpg")
-    img_response = process_image()
-    json_response = json.loads(img_response)
-    print(json_response)
+# def main():
+#     # img_response = identify_image("../test_images/shitty_poster3.jpg")
+#     img_response = process_image()
+#     json_response = json.loads(img_response)
+#     print(json_response)
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

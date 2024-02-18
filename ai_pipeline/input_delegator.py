@@ -34,7 +34,7 @@ Parameters:
 Returns:
 - dict: A dictionary with the extracted command and movement information.
 """
-def delegate_input(text):
+def delegate_input(text, spot):
     enum_looped = [e.value for e in Commands]
     prompt = """
     Given the following string of text, determine whether it is focused on asking for an image,
@@ -70,14 +70,14 @@ def delegate_input(text):
 
     print(content_dict)
     if content_dict["type"] == "image_process":
-        return process_image()
+        return process_image(spot)
     elif content_dict["type"] == "movement":
         command = get_command_and_movement(content_dict["prompt"])
         if "message" not in command:
             if "radians" in command:
-                rotateSpot(command["radians"], command["command"])
+                rotateSpot(command["radians"], command["command"], spot)
             elif "metres" in command:
-                moveSpot(command["metres"], command["command"])
+                moveSpot(command["metres"], command["command"], spot)
     else:
         return get_openai_command(content_dict["prompt"])
 
