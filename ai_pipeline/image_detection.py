@@ -51,7 +51,7 @@ def snapshot_image():
         # Encode the image as a JPEG
         _, buffer = cv2.imencode('.jpg', frame)
 
-        cv2.imwrite("test", frame)
+        # cv2.imwrite("test", frame)
 
         # Encode the image as a JPEG
         # Convert the JPEG buffer to a base64 string
