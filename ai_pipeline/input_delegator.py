@@ -2,6 +2,9 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from enum import Enum
+from image_detection import process_image
+from misc_request import get_openai_command
+from move_process import get_command_and_movement
 import json
 
 load_dotenv()
@@ -18,8 +21,15 @@ class Commands(Enum):
     MOVE_BACKWARD = "MOVE_BACKWARD"
     TURN_LEFT = "TURN_LEFT"
     TURN_RIGHT = "TURN_RIGHT"
-    TURN_UP = "TURN_UP"
-    TURN_DOWN = "TURN_DOWN"
+    TURN_FORWARD = "TURN_UP"
+    TURN_BACKWARD = "TURN_DOWN"
+
+
+
+# CHANGE UNIT TO METRES FOR MOVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# radians for turning is good though
+
+
 
 """
 Extracts command and movement information from a given text string using the OpenAI API.
@@ -30,22 +40,12 @@ Parameters:
 Returns:
 - dict: A dictionary with the extracted command and movement information.
 """
-
-# CHANGE UNIT TO METRES FOR MOVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# radians for turning is good though
-
-
-def get_command_and_movement(text):
+def delegate_input(text):
     enum_looped = [e.value for e in Commands]
     prompt = """
-            Given the following string of text, produce a JSON object array in the format {"command":command, "radians": radians_number} where the command value is
-    one of the following commands: ['MOVE_LEFT', 'MOVE_RIGHT', 'MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP', 'TURN_DOWN']
-    and whose radian value represents a number from the range 0 to 6.28. 
-
-    However, if the user doesn't specify a number (e.g. they say "turn right a little bit"), use your judgement to determine a suitable number for the output in the range.
-            """
-
-    print(prompt)
+    Given the following string of text, determine whether it is focused on asking for an image,
+    asking for movement, or asking for a general inquiry. Return the output as a JSON object in the following form: 
+    {"type": (either "movement", "image_process", or "general"), "prompt":"prompt"}"""
 
     # Make a call to the OpenAI API
     response = client.chat.completions.create(
@@ -74,23 +74,15 @@ def get_command_and_movement(text):
     # Convert the string to a dictionary
     content_dict = json.loads(content_string)
 
-    # Now, 'content_dict' is a dictionary that you can work with
-    command_array = content_dict["command"]
-
-    # 'command_array' is now a list that contains the command and the movement
-
     print(content_dict)
+    if content_dict["type"] == "image_process":
+        return process_image()
+    elif content_dict["type"] == "movement":
+        return get_command_and_movement(content_dict["prompt"])
+    else:
+        return get_openai_command(content_dict["prompt"])
 
-    return content_dict
+def playAudio(text):
+    print(text)
 
-def main():
-    input_text = "Hey Spot, turn around twice"
-    result = get_command_and_movement(input_text)
-    output = {
-        "movement": result["radians"],
-        "command": Commands[result["command"]].value
-    }
-    print(img_response)
-
-if __name__ == "__main__":
-    main()
+playAudio(delegate_input("What's 9 + 10"))

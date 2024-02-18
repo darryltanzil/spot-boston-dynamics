@@ -18,15 +18,8 @@ class Commands(Enum):
     MOVE_BACKWARD = "MOVE_BACKWARD"
     TURN_LEFT = "TURN_LEFT"
     TURN_RIGHT = "TURN_RIGHT"
-    TURN_FORWARD = "TURN_UP"
-    TURN_BACKWARD = "TURN_DOWN"
-
-
-
-# CHANGE UNIT TO METRES FOR MOVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# radians for turning is good though
-
-
+    TURN_UP = "TURN_UP"
+    TURN_DOWN = "TURN_DOWN"
 
 """
 Extracts command and movement information from a given text string using the OpenAI API.
@@ -37,12 +30,17 @@ Parameters:
 Returns:
 - dict: A dictionary with the extracted command and movement information.
 """
+
+# CHANGE UNIT TO METRES FOR MOVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# radians for turning is good though
+
+
 def get_command_and_movement(text):
     enum_looped = [e.value for e in Commands]
     prompt = """
             Given the following string of text, produce a JSON object array in the format {"command":command, "radians": radians_number} where the command value is
     one of the following commands: ['MOVE_LEFT', 'MOVE_RIGHT', 'MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP', 'TURN_DOWN']
-    and whose radian value represents a number from the range 0 to 360. 
+    and whose radian value represents a number from the range 0 to 6.28. 
 
     However, if the user doesn't specify a number (e.g. they say "turn right a little bit"), use your judgement to determine a suitable number for the output in the range.
             """
@@ -92,7 +90,6 @@ def main():
         "movement": result["radians"],
         "command": Commands[result["command"]].value
     }
-    print(img_response)
 
 if __name__ == "__main__":
     main()

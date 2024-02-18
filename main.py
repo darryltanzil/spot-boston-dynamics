@@ -6,6 +6,7 @@ import cv2
 import base64
 from wormholelite import CameraVideo
 from websocket import create_connection
+from ai_pipeline.image_detection import *
 
 ROBOT_IP = "10.0.0.3"#os.environ['ROBOT_IP']
 SPOT_USERNAME = "admin"#os.environ['SPOT_USERNAME']
@@ -32,13 +33,16 @@ Responding
 Idling
 """ 
 
+# def voice_callback(message):
+    # get
+
 def main():
     if True:
     # from spot_controller import SpotController
     # with SpotController(username=SPOT_USERNAME, password=SPOT_PASSWORD, robot_ip=ROBOT_IP) as spot:
-        ws = create_connection("wss://4c35-171-66-13-158.ngrok-free.app")
+        ws = create_connection("wss://737c-171-66-13-247.ngrok-free.app")
         ws.send("Hello, World")
-        cam = CameraVideo(0, max_fps=1, height=360, width=480)
+        # cam = CameraVideo(0, max_fps=1, height=360, width=480)
         while True:
             try:
                 cmd =  ws.recv()
