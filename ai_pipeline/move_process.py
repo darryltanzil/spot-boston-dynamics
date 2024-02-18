@@ -39,9 +39,9 @@ def get_command_and_movement(text):
     enum_looped = [e.value for e in Commands]
     prompt = """
             Given the following string of text, produce a JSON object. The JSON object should be formatted as {"command": command, "radians"?: radians_number, "metres"?: metres: metres_number} where metres is chosen if we select a MOVE command 
-    versus radians being chosen if we select a TURN command. The command value should be
+    versus radians being chosen if we select a TURN command. You MUST include either radians or metres. The command value should be
     one of the following commands: ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP', 'TURN_DOWN']. The metres or radians should be what the user specifies.
-    However, if the user doesn't specify a number (e.g. they say "turn right a little bit"), use your judgement to determine a suitable amount for the output (e.g. a little is 0.5 radians, a lot is 4 radians)
+    However, if the user doesn't specify a number (e.g. they say "turn right a little bit"), use your judgement to determine a suitable amount for the output (e.g. a little is 0.5 radians, left turn is 2 radians, a lot is 4 radians, full circle is 8 radians)
             """
 
     print(prompt)
@@ -83,7 +83,7 @@ def get_command_and_movement(text):
     return content_dict
 
 def main():
-    input_text = "Hey Spot, move a lot to the left"
+    input_text = "Hey Spot, turn left"
     result = get_command_and_movement(input_text)
     output = {
         "movement": result["radians"],
