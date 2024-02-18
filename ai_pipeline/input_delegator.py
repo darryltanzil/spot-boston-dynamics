@@ -24,12 +24,17 @@ class Commands(Enum):
     TURN_FORWARD = "TURN_UP"
     TURN_BACKWARD = "TURN_DOWN"
 
+# command is one of ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP', 'TURN_DOWN']
+def moveSpot(metres, command):
+    print(metres)
+    print(command)
 
+def rotateSpot(radians, command):
+    print(radians)
+    print(command)
 
-# CHANGE UNIT TO METRES FOR MOVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# radians for turning is good though
-
-
+def playAudio(text):
+    print(text)
 
 """
 Extracts command and movement information from a given text string using the OpenAI API.
@@ -81,8 +86,5 @@ def delegate_input(text):
         return get_command_and_movement(content_dict["prompt"])
     else:
         return get_openai_command(content_dict["prompt"])
-
-def playAudio(text):
-    print(text)
 
 playAudio(delegate_input("What's 9 + 10"))

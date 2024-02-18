@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import base64
 import json
+from input_delegator import rotateSpot, moveSpot
 import requests
 import cv2
 import re
@@ -13,15 +14,6 @@ client = OpenAI(
     # This is the default and can be omitted
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
-
-# command is one of ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'TURN_UP', 'TURN_DOWN']
-def moveSpot(metres, command):
-    print(metres)
-    print(command)
-
-def rotateSpot(radians, command):
-    print(radians)
-    print(command)
 
 def process_image():
     """
