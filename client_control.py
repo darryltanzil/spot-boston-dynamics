@@ -31,7 +31,7 @@ async def echo(websocket, path):
         # print("SEND:", cmd.strip())
         await websocket.send(cmd)
 
-start_server = websockets.serve(echo, "0.0.0.0", os.environ.get('PORT') or 8080)
+start_server = websockets.serve(echo, "0.0.0.0", os.environ.get('PORT') or 8080, ping_timeout=None)
 
 print("WebSockets echo server starting", flush=True)
 asyncio.get_event_loop().run_until_complete(start_server)
