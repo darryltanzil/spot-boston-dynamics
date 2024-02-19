@@ -1,6 +1,6 @@
 # Hawkeye - Multimodal Interaction Robot
 
-[![Watch the video]([https://i.stack.imgur.com/Vp2cE.png](https://github.com/darryltanzil/spot-boston-dynamics/assets/5387769/54f19158-6752-4d41-ad5a-896e53d35a31))](https://youtu.be/vt5fpE0bzSY](https://www.youtube.com/watch?v=PDaMZ3OyuGc)
+[![Watch the video](https://github.com/darryltanzil/spot-boston-dynamics/assets/5387769/54f19158-6752-4d41-ad5a-896e53d35a31)](https://www.youtube.com/watch?v=PDaMZ3OyuGc)
 
 Hawkeye is a real time multimodal conversation and interaction agent for the Boston Dynamics’ mobile robot Spot. Leveraging OpenAI’s experimental GPT-4 Turbo and Vision AI models, Hawkeye aims to empower everyone, from seniors to healthcare professionals in forming new and unique interactions with the world around them. 
 
